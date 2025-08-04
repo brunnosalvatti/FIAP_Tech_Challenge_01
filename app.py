@@ -1,16 +1,32 @@
 from flask import Flask, request, jsonify, render_template       # Da biblioteca flask, importamos a classe Flask e os métodos requests, jsonify e render_template
+from flask_sqlalchemy import SQLAlchemy
+from flasgger import Swagger
 import requests
 import pandas as pd
 
 app=Flask(__name__)
+app.config.from_object('config')
+db = SQLAlchemy(app)
+Swagger(app)
+
+class User(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(80), unique = True, nullable = False)
+    password = db.Column(db.String(120), nullable = False)
+
+if __name__ == '__main__':
+    with app.app_context():
+        db.create_all()
+        print("Banco de Dados Criado")
+
 df=pd.read_csv('data/web_scraping.csv', sep=',')                  # Abertura do arquivo gerado por web scraping 
 url='https://books.toscrape.com/'                                 # URL base
 
 
+
 @app.route('/')
 def home():
-    return render_template('front.html')                         # Página Inicial da Aplicação Renderiza uma Front-End
-
+    return f'bem vindo!'
 
 # Endpoints obrigatórios
 
@@ -98,19 +114,6 @@ def overview():
 
     return jsonify(overview)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 '''Retorna Atributos para Cada Categoria'''
 @app.route('/api/v1/stats/categories')
 def stats_categories():
@@ -123,17 +126,11 @@ def stats_categories():
 
 
 
-
-
-
-
 '''Lista os livros com melhor avaliação (rating mais alto)'''
 @app.route('/api/v1/books/top-rated')
 def top_rated():
     top_rated = df.query("Rating == 5")
     return jsonify(top_rated.to_dict(orient='records'))
-
-
 
 
 '''Filtra livros dentro de uma faixa de preço específica'''
