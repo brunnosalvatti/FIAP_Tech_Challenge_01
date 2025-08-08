@@ -1,10 +1,10 @@
 Descrição do Projeto:
+O projeto tem como objetivo a criação de minha primeira API, sendo uma API documentada e com autenticação JWT.
+A API faz o webscraping do site https://books.toscrape.com/ criando um arquivo products.csv que contém o link para cada produto disponível no site.
+Após a criação desse arquivo, ele é usado para fazer o webscraping de cada um dos links de products.csv, obtendo assim um arquivo web_scraping.csv contendo informações sobre cada um dos produtos (Título, Categoria, Preço, Imagem, Nota, Link, Descrição,Index).
+Esse arquivo gerado é utilizado nas rotas da API para gerar uma análise de dados do site, por meio de diferentes endpoints.
 
 
-
-
-
-### É necessário implementar INDEX
 
 Arquitetura do Projeto:
 
@@ -14,7 +14,11 @@ Arquitetura do Projeto:
 
 
 Instruções de Instalação e Configuração:
-1) Clonar o repositório 
+
+1) Clonar o repositório
+
+
+git clone git@github.com:brunnosalvatti/FIAP_Tech_Challenge_01.git
 
 
 2) Criar e ativar ambiente virtual venv:
@@ -47,3 +51,13 @@ python app.py
 
 
 5) Execute os endpoints
+
+
+
+
+
+
+
+
+
+Para acessar rotas sensíveis, use como usuário FIAP e como senha 123456
